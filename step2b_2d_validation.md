@@ -1,3 +1,4 @@
+@import "style.less"
 # Step 2b: 2D Cross-Section Validation
 
 ## Purpose

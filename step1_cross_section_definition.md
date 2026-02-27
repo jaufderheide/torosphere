@@ -1,3 +1,5 @@
+@import "style.less"
+
 # Step 1: Cross-Section Definition
 
 ## Coordinate System
@@ -9,8 +11,6 @@
 
 The cross-section profile lives in the $r \geq 0$ half of the $r$–$z$ plane.
 
----
-
 ## Input Parameters
 
 | Symbol | Name | Constraint |
@@ -20,8 +20,6 @@ The cross-section profile lives in the $r \geq 0$ half of the $r$–$z$ plane.
 | $r_k$ | Knuckle radius (inner) | $t < r_k < D/2$ |
 | $t$ | Shell thickness | $0 < t < r_k$ |
 | $h$ | Straight flange height | $h \geq 0$ |
-
----
 
 ## Derived Geometry
 
