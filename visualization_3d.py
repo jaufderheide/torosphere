@@ -5,7 +5,7 @@ Produces a side-by-side figure with:
   Right — half-section (y ≥ 0) with a filled cross-section at the cut plane
 
 Zone colours match the 2D validation plot (visualization_2d.py) so that
-junior engineers can cross-reference the 2D segments with the 3D surfaces.
+engineers and developers can cross-reference the 2D segments with the 3D surfaces.
 
 Public API
 ----------

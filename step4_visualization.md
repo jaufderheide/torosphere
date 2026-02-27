@@ -123,7 +123,7 @@ visual scale. This is the most important detail for making the geometry
 legible — a dome with 4:1 width-to-height ratio should look flat, not
 bullet-shaped.
 
-> **Note for junior developers:** `set_box_aspect` sets the *proportions
+> **Note for developers:** `set_box_aspect` sets the *proportions
 > of the rendered 3D box*, not the axis tick spacing. The axis limits and
 > tick marks are still set independently by matplotlib. This is a visual
 > scaling correction, not a data transformation.
