@@ -218,7 +218,7 @@ def plot_cross_section_validation(
         f"  Dome height above flange: {g.z_apex_inner - h:.1f} mm"
     )
     ax.text(
-        0.02, 1.7, summary,
+        0.02, 1.85, summary,
         transform=ax.transAxes,
         va="top", ha="left", fontsize=7.5,
         family="monospace",

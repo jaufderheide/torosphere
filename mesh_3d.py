@@ -12,8 +12,9 @@ Coordinate system
 
 Public API
 ----------
-  revolve_profile(r, z, n_az)                           → (X, Y, Z)
+  revolve_profile(r, z, n_az)                           → (X, Y, Z, theta)
   build_head_mesh(D, R_c, r_k, t, h, n_mer, n_az)      → HeadMesh
+  segment_row_ranges(n_arc)                              → list of (name, start, end)
 """
 
 from __future__ import annotations
@@ -191,3 +192,84 @@ def build_head_mesh(
         n_meridional=n_meridional,
         n_azimuthal=n_azimuthal,
     )
+
+
+# ---------------------------------------------------------------------------
+# Segment row-range map  (used by the visualization layer)
+# ---------------------------------------------------------------------------
+
+def segment_row_ranges(n_arc: int) -> list[tuple[str, int, int]]:
+    """Return the profile row index range for each of the 8 cross-section segments.
+
+    Used by the visualization layer to colour-code the 3D surface by zone —
+    each segment is plotted as a separate plot_surface call with its own colour,
+    mirroring the colour scheme of the 2D validation plot.
+
+    Parameters
+    ----------
+    n_arc : int
+        Arc samples per segment — must equal the value passed as ``n_meridional``
+        to ``build_head_mesh`` / ``build_cross_section``.
+
+    Returns
+    -------
+    list of (name, start_row, end_row) tuples
+        ``start_row`` : first row index for this zone in the mesh grid.
+        ``end_row``   : last row index (inclusive).
+        Slice the mesh as ``X[start_row : end_row + 1, :]`` for plot_surface.
+        Adjacent zones share a boundary row, giving seamless coverage with
+        no gaps or overlaps between zone colours.
+
+    How the index map is derived
+    ----------------------------
+    ``build_cross_section`` assembles the profile by concatenating segment
+    arrays with de-duplication (each segment drops its last point, except the
+    final apex-flat segment which keeps both points, plus one closing point).
+
+    Cumulative start positions in the resulting profile array:
+
+    +--------------------------+-------------------+------------------+
+    | Segment                  | Start index       | Point count      |
+    +==========================+===================+==================+
+    | 1. Inner crown arc       | 0                 | n_arc − 1        |
+    | 2. Inner knuckle arc     | n_arc − 1         | n_arc − 1        |
+    | 3. Inner straight flange | 2·n_arc − 2       | 1                |
+    | 4. Bottom rim            | 2·n_arc − 1       | 1                |
+    | 5. Outer straight flange | 2·n_arc           | 1                |
+    | 6. Outer knuckle arc     | 2·n_arc + 1       | n_arc − 1        |
+    | 7. Outer crown arc       | 3·n_arc           | n_arc − 1        |
+    | 8. Apex flat             | 4·n_arc − 1       | 2                |
+    | Closing point            | 4·n_arc + 1       | 1                |
+    +--------------------------+-------------------+------------------+
+
+    Total profile points = 4·n_arc + 2  (e.g. 258 for n_arc = 64).
+    """
+    # Start index of each segment (see table above)
+    starts = [
+        0,               # seg 1: inner crown arc
+        n_arc - 1,       # seg 2: inner knuckle arc
+        2 * n_arc - 2,   # seg 3: inner straight flange
+        2 * n_arc - 1,   # seg 4: bottom rim
+        2 * n_arc,       # seg 5: outer straight flange
+        2 * n_arc + 1,   # seg 6: outer knuckle arc
+        3 * n_arc,       # seg 7: outer crown arc
+        4 * n_arc - 1,   # seg 8: apex flat
+    ]
+    names = [
+        "Inner crown arc",
+        "Inner knuckle arc",
+        "Inner straight flange",
+        "Bottom rim",
+        "Outer straight flange",
+        "Outer knuckle arc",
+        "Outer crown arc",
+        "Apex flat",
+    ]
+    n_last = 4 * n_arc + 1   # index of the closing (last) point
+
+    result = []
+    for i, (name, start) in enumerate(zip(names, starts)):
+        end = starts[i + 1] if i < len(starts) - 1 else n_last
+        result.append((name, start, end))
+    return result
+
