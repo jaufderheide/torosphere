@@ -30,9 +30,15 @@ between the crown sphere and the knuckle torus:
 
 $$z_{sc} = h - \sqrt{(R_c - r_k)^2 - (D/2 - r_k)^2}$$
 
-> ⚠️ **Note:** $z_{sc}$ is frequently **negative** for typical ASME proportions (e.g. $R_c = D$).
-> The sphere centre lies below the flange base — only a shallow spherical cap is used for the
-> dome.  This is geometrically correct and expected.
+> ⚠️ **Note:** $z_{sc}$ is frequently **negative** for typical ASME proportions ($R_c = D$,
+> $r_k = 0.1D$). The sphere centre lies below the flange base — only a shallow spherical cap
+> is used for the dome.  This is geometrically correct and expected.
+
+> **ASME proportion guidance:** The ASME standard typically uses $R_c = D$ and $r_k = 0.1D$
+> as a common design proportion, with $r_k \geq 0.06D$ as the practical minimum. This tool
+> does not enforce these ratios — it will correctly visualize any geometrically valid
+> combination.  ASME compliance is the responsibility of the design calculation software that
+> this tool is intended to supplement.
 
 **Coordinate convention:** $z = 0$ at the open (flange) end, $z$ increases toward the apex.
 $r = 0$ on the centreline axis.

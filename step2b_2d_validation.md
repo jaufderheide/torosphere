@@ -70,19 +70,22 @@ Run `main.py` and verify the following before proceeding to Step 3:
 
 | Parameter | Value | Notes |
 |-----------|-------|-------|
-| $D$ | 1000 mm | |
-| $R_c$ | 1000 mm | = $D$ (ASME standard proportion) |
-| $r_k$ | 100 mm | = $0.1 D$ (ASME standard proportion) |
-| $t$ | 10 mm | = $0.01 D$ |
-| $h$ | 50 mm | = $0.05 D$ |
+| $D$ | 1524 mm | |
+| $R_c$ | 1524 mm | = $D$ (typical ASME proportion) |
+| $r_k$ | 100 mm | ≈ 0.066$D$; typical ASME is 0.1$D$, minimum ≈ 0.06$D$ |
+| $t$ | 10 mm | |
+| $h$ | 50 mm | |
+
+> The knuckle radius intentionally differs from the 0.1$D$ ASME typical to demonstrate
+> that the tool handles valid non-standard proportions correctly.
 
 Expected derived values:
 
 | Quantity | Expected |
 |----------|----------|
-| $z_{sc}$ | −756.23 mm |
-| $\alpha$ | 63.61° |
-| $\phi_t$ | 26.39° |
-| Dome height | 193.77 mm |
+| $z_{sc}$ | −1210.77 mm |
+| $\alpha$ | 62.30° |
+| $\phi_t$ | 27.70° |
+| Dome height | 263.23 mm |
 
 ---

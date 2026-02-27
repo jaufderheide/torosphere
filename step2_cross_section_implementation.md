@@ -61,11 +61,17 @@ In 2D this is a short vertical line on the axis. When revolved (Step 3) this is 
 
 ### 5. z_sc can be (and usually is) negative
 
-For typical ASME proportions ($R_c = D$, $r_k = 0.1D$):
+For the typical ASME proportion ($R_c = D$, $r_k = 0.1D$) the formula simplifies to
+$z_{sc} \approx h - 0.806 \cdot D$. The reference case used throughout this project
+($D = 1524$ mm, $R_c = 1524$ mm, $r_k = 100$ mm, $h = 50$ mm) gives $z_{sc} \approx -1211$ mm.
+Only a shallow cap of the large sphere is used for the dome. The code handles this correctly
+and naturally.
 
-$$z_{sc} \approx h - 0.806 \cdot D$$
-
-For $D = 1000$ mm and $h = 50$ mm this gives $z_{sc} \approx -756$ mm. Only a shallow cap of the large sphere is used for the dome. The code handles this correctly and naturally.
+> **Note on knuckle radius proportions:** The typical ASME design proportion is
+> $r_k = 0.1D$ (152 mm for $D = 1524$ mm). The reference case uses $r_k = 100$ mm
+> ($\approx 0.066D$), which is near the practical minimum of $0.06D$ and is a
+> geometrically valid variance from the typical proportion. This tool visualizes any
+> valid geometry — it does not enforce ASME proportions.
 
 ---
 
@@ -106,17 +112,17 @@ Traversal is counter-clockwise in the $(r, z)$ half-plane.
 `main.py` is updated to plot the 2D cross-section as a visual sanity check
 before proceeding to Step 3 (3D mesh generation).
 
-Recommended test case (ASME-proportioned head):
+Recommended test case:
 
-| Parameter | Value |
-|-----------|-------|
-| $D$ | 1000 mm |
-| $R_c$ | 1000 mm (= $D$) |
-| $r_k$ | 100 mm (= 0.1$D$) |
-| $t$ | 10 mm |
-| $h$ | 50 mm |
+| Parameter | Value | Notes |
+|-----------|-------|-------|
+| $D$ | 1524 mm | |
+| $R_c$ | 1524 mm | = $D$ (typical ASME proportion) |
+| $r_k$ | 100 mm | ≈ 0.066$D$; typical is 0.1$D$, minimum ≈ 0.06$D$ |
+| $t$ | 10 mm | |
+| $h$ | 50 mm | |
 
 Expected behaviour: smooth profile with no kinks at the crown–knuckle junctions.
-The dome height above the flange should be approximately 193 mm for these values.
+The dome height above the flange should be approximately 263 mm for these values.
 
 ---

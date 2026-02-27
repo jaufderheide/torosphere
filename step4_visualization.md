@@ -110,7 +110,7 @@ The polygon is drawn twice — once at x > 0 (θ = 0 face) and once at x < 0
 
 Without explicit aspect correction, matplotlib stretches all three axes to
 fill the same rendered box height. For a torospherical head with
-D = 1000 mm and dome height ≈ 254 mm, the Z axis would appear ≈4× too tall.
+D = 1524 mm and dome height ≈ 323 mm, the Z axis would appear ≈5× too tall.
 
 The fix — applied in `_set_equal_aspect` — uses `ax.set_box_aspect`:
 
